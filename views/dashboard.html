@@ -317,7 +317,7 @@
     // 3. Load Category Assets
     async function loadCategoryAssets() {
         const grid = document.getElementById('assets-grid');
-        grid.innerHTML = '<div class="col-span-full py-8 text-center text-xs font-mono text-[#94A3B8]"><i class="fa-solid fa-spinner fa-spin mr-2"></i> Lade Assets...</div>';
+        grid.innerHTML = '<div class="col-span-full py-8 text-center text-xs font-mono text-[#94A3B8]"><i class="fa-solid fa-spinner fa-spin mr-2 text-[#00F0FF]"></i> Lade Assets...</div>';
 
         try {
             const res = await fetch(`api/storage.php?category=${encodeURIComponent(currentCategory)}`);
@@ -326,45 +326,63 @@
             if (data.success && data.files && data.files.length > 0) {
                 grid.innerHTML = '';
                 data.files.forEach(f => {
-                    const isImg = /\.(jpg|jpeg|png|webp|svg)$/i.test(f.name);
+                    const isImg = f.is_image || /\.(jpg|jpeg|png|webp|svg|gif|avif|bmp)$/i.test(f.name);
                     const isPdf = /\.pdf$/i.test(f.name);
+                    const isVideo = /\.(mp4|webm|mov)$/i.test(f.name);
+                    const isCode = /\.(json|md|csv|txt|css|js|html|php)$/i.test(f.name);
                     const sizeKb = (f.size / 1024).toFixed(1);
+                    const assetUrl = f.url || `/projects/PRJ-2026-0001_ControlCenter_v3/${f.rel_path || f.name}`;
 
                     const card = document.createElement('div');
-                    card.className = 'bg-[#181826] border border-[#282838] hover:border-[#00F0FF]/50 rounded-xl p-3 flex flex-col justify-between transition-all group overflow-hidden';
+                    card.className = 'bg-[#181826] border border-[#282838] hover:border-[#00F0FF]/50 rounded-xl p-3 flex flex-col justify-between transition-all group overflow-hidden shadow-md hover:shadow-cyan-500/5';
                     
                     let previewHtml = '';
                     if (isImg) {
-                        previewHtml = `<div class="w-full h-20 bg-black/40 rounded-lg mb-2 overflow-hidden flex items-center justify-center">
-                            <img src="${f.url}" alt="${f.name}" class="max-h-full max-w-full object-contain" loading="lazy" />
+                        previewHtml = `<div class="w-full h-24 bg-black/50 rounded-lg mb-2 overflow-hidden flex items-center justify-center relative cursor-pointer group-hover:brightness-110 transition" onclick="window.open('${assetUrl}', '_blank')">
+                            <img src="${assetUrl}" alt="${f.name}" class="max-h-full max-w-full object-contain" loading="lazy" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\\'flex flex-col items-center justify-center h-full text-slate-500 text-xs font-mono\\'><i class=\\'fa-regular fa-image text-xl mb-1 text-slate-600\\'></i><span>Vorschau n/v</span></div>';" />
+                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition text-white text-xs font-mono gap-1">
+                                <i class="fa-solid fa-up-right-from-square"></i> Großansicht
+                            </div>
                         </div>`;
                     } else if (isPdf) {
-                        previewHtml = `<div class="w-full h-20 bg-rose-500/10 text-rose-400 rounded-lg mb-2 flex items-center justify-center text-2xl">
-                            <i class="fa-solid fa-file-pdf"></i>
+                        previewHtml = `<div class="w-full h-24 bg-rose-500/10 text-rose-400 rounded-lg mb-2 flex flex-col items-center justify-center text-2xl cursor-pointer hover:bg-rose-500/20 transition" onclick="window.open('${assetUrl}', '_blank')">
+                            <i class="fa-solid fa-file-pdf mb-1"></i>
+                            <span class="text-[10px] font-mono text-rose-300">PDF Dokument</span>
+                        </div>`;
+                    } else if (isVideo) {
+                        previewHtml = `<div class="w-full h-24 bg-purple-500/10 text-purple-400 rounded-lg mb-2 flex flex-col items-center justify-center text-2xl cursor-pointer hover:bg-purple-500/20 transition" onclick="window.open('${assetUrl}', '_blank')">
+                            <i class="fa-solid fa-video mb-1"></i>
+                            <span class="text-[10px] font-mono text-purple-300">Video Media</span>
                         </div>`;
                     } else {
-                        previewHtml = `<div class="w-full h-20 bg-cyan-500/10 text-[#00F0FF] rounded-lg mb-2 flex items-center justify-center text-2xl">
-                            <i class="fa-solid fa-file-code"></i>
+                        previewHtml = `<div class="w-full h-24 bg-cyan-500/10 text-[#00F0FF] rounded-lg mb-2 flex flex-col items-center justify-center text-2xl cursor-pointer hover:bg-cyan-500/20 transition" onclick="window.open('${assetUrl}', '_blank')">
+                            <i class="fa-solid fa-file-lines mb-1"></i>
+                            <span class="text-[10px] font-mono text-cyan-300">Text / Code</span>
                         </div>`;
                     }
 
                     card.innerHTML = `
                         ${previewHtml}
                         <div class="truncate text-xs font-bold text-white mb-1" title="${f.name}">${f.name}</div>
-                        <div class="flex items-center justify-between text-[10px] font-mono text-[#94A3B8] mt-1">
+                        <div class="flex items-center justify-between text-[10px] font-mono text-[#94A3B8] mt-1 pt-1.5 border-t border-[#282838]/60">
                             <span>${sizeKb} KB</span>
-                            <button onclick="copyToClipboard('${f.url}')" class="hover:text-[#C8FF00] transition" title="URL kopieren">
-                                <i class="fa-regular fa-copy"></i>
-                            </button>
+                            <div class="flex items-center gap-2">
+                                <a href="${assetUrl}" target="_blank" class="hover:text-[#00F0FF] transition" title="Öffnen">
+                                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                </a>
+                                <button type="button" onclick="copyToClipboard('${assetUrl}')" class="hover:text-[#C8FF00] transition" title="URL kopieren">
+                                    <i class="fa-regular fa-copy"></i>
+                                </button>
+                            </div>
                         </div>
                     `;
                     grid.appendChild(card);
                 });
             } else {
-                grid.innerHTML = '<div class="col-span-full py-8 text-center text-xs font-mono text-[#94A3B8]">Keine Dateien in dieser Kategorie vorhanden. Ziehe Dateien hierher, um sie hochzuladen.</div>';
+                grid.innerHTML = '<div class="col-span-full py-8 text-center text-xs font-mono text-[#94A3B8] border border-dashed border-[#282838] rounded-xl">Keine Dateien in dieser Kategorie vorhanden. Ziehe Dateien oben in die Upload-Zone, um sie hochzuladen.</div>';
             }
         } catch (e) {
-            grid.innerHTML = '<div class="col-span-full py-8 text-center text-xs font-mono text-rose-400">Fehler beim Laden der Assets.</div>';
+            grid.innerHTML = '<div class="col-span-full py-8 text-center text-xs font-mono text-rose-400">Fehler beim Laden der Assets: ' + e.message + '</div>';
         }
     }
 
