@@ -1,0 +1,7 @@
+{
+  "project_id": "PRJ-2026-0001_ControlCenter_v3",
+  "epic_id": "EPIC-2026-CCV3-GREENFIELD",
+  "repository": "AIFoxHUB/Control_Center_v3",
+  "architecture": "SPA Shell PHP + Dynamic View Router",
+  "governance": "Donna COO & HP-Worker (0.00 EUR Local LLM)"
+}
