@@ -54,15 +54,17 @@ $page_title = 'Control Center v3 • ' . ucfirst($view);
     </script>
     <!-- FontAwesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Cyber Design System -->
+    <link rel="stylesheet" href="00_brand_dna/cyber_design_system.css">
     <style>
         body {
-            background-color: #0b0f19;
-            color: #f8fafc;
+            background-color: var(--cc-bg, #0A0A0F);
+            color: var(--cc-text-main, #F4F4F5);
         }
         .nav-link.active {
-            background: rgba(6, 182, 212, 0.12);
-            color: #22d3ee;
-            border-color: rgba(6, 182, 212, 0.4);
+            background: rgba(0, 240, 255, 0.12);
+            color: #00F0FF;
+            border-color: rgba(0, 240, 255, 0.4);
         }
     </style>
 </head>
