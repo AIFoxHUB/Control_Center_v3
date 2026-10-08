@@ -360,9 +360,14 @@ function renderProposals(proposals) {
                     <div class="text-xs font-bold text-white">${parseFloat(p.total_gross || 0).toFixed(2)} €</div>
                     <div class="text-[10px] text-slate-500">netto: ${parseFloat(p.total_net || 0).toFixed(2)} €</div>
                 </div>
-                <button onclick="deleteProposal(${p.id})" class="text-slate-500 hover:text-rose-400 p-1" title="Löschen">
-                    <i class="fa-solid fa-trash-can text-xs"></i>
-                </button>
+                <div class="flex items-center gap-1.5">
+                    <button onclick="convertProposalToInvoice(${p.id})" class="px-2 py-1 rounded bg-cyan-950 text-cyan-400 hover:bg-cyan-900 border border-cyan-800 text-[10px] font-mono font-bold transition" title="In ZUGFeRD Rechnung umwandeln">
+                        <i class="fa-solid fa-file-export mr-1"></i> -> RE
+                    </button>
+                    <button onclick="deleteProposal(${p.id})" class="text-slate-500 hover:text-rose-400 p-1" title="Löschen">
+                        <i class="fa-solid fa-trash-can text-xs"></i>
+                    </button>
+                </div>
             </div>
         </div>
     `).join('');
@@ -391,6 +396,9 @@ function renderInvoices(invoices) {
                     <div class="text-xs font-bold text-white">${parseFloat(i.total_gross || 0).toFixed(2)} €</div>
                     <div class="text-[10px] text-emerald-400"><i class="fa-solid fa-check mr-1"></i>ZUGFeRD 2.2 XML</div>
                 </div>
+                <button onclick="exportZugferdXml(${i.id})" class="px-2.5 py-1.5 rounded-lg bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/25 text-xs font-mono font-bold flex items-center gap-1 transition" title="ZUGFeRD 2.2 XML herunterladen">
+                    <i class="fa-solid fa-download"></i> XML
+                </button>
             </div>
         </div>
     `).join('');
@@ -493,6 +501,125 @@ function exportDatevCsv(tenant) {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+}
+
+function exportZugferdXml(id) {
+    const inv = allInvoices.find(i => i.id == id) || allInvoices[0];
+    if (!inv) {
+        alert('Rechnung nicht gefunden.');
+        return;
+    }
+    
+    const issueDate = (inv.created_at || new Date().toISOString()).slice(0,10).replace(/-/g,'');
+    const net = parseFloat(inv.total_net || 0).toFixed(2);
+    const vat = parseFloat(inv.vat || (net * 0.19)).toFixed(2);
+    const gross = parseFloat(inv.total_gross || (parseFloat(net) + parseFloat(vat))).toFixed(2);
+    const invNr = inv.invoice_nr || 'RE-2026-1001';
+    const client = escapeHtml(inv.client_name || 'Bürgerinitiative Illingen');
+
+    const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<rsm:CrossIndustryInvoice xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100" xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100">
+    <rsm:ExchangedDocumentContext>
+        <ram:GuidelineSpecifiedDocumentContextParameter>
+            <ram:ID>urn:cen.eu:en16931:2017#compliant#urn:factur-x.eu:1p0:comfort</ram:ID>
+        </ram:GuidelineSpecifiedDocumentContextParameter>
+    </rsm:ExchangedDocumentContext>
+    <rsm:ExchangedDocument>
+        <ram:ID>${invNr}</ram:ID>
+        <ram:TypeCode>380</ram:TypeCode>
+        <ram:IssueDateTime>
+            <udt:DateTimeString format="102">${issueDate}</udt:DateTimeString>
+        </ram:IssueDateTime>
+    </rsm:ExchangedDocument>
+    <rsm:SupplyChainTradeTransaction>
+        <ram:ApplicableHeaderTradeAgreement>
+            <ram:SellerTradeParty>
+                <ram:Name>IT-Signs Patrice Fuchs</ram:Name>
+                <ram:PostalTradeAddress>
+                    <ram:PostcodeCode>66557</ram:PostcodeCode>
+                    <ram:LineOne>Brückenstraße 65</ram:LineOne>
+                    <ram:CityName>Illingen</ram:CityName>
+                    <ram:CountryID>DE</ram:CountryID>
+                </ram:PostalTradeAddress>
+                <ram:SpecifiedTaxRegistration>
+                    <ram:ID schemeID="VA">DE137994694</ram:ID>
+                </ram:SpecifiedTaxRegistration>
+            </ram:SellerTradeParty>
+            <ram:BuyerTradeParty>
+                <ram:Name>${client}</ram:Name>
+                <ram:PostalTradeAddress>
+                    <ram:CountryID>DE</ram:CountryID>
+                </ram:PostalTradeAddress>
+            </ram:BuyerTradeParty>
+        </ram:ApplicableHeaderTradeAgreement>
+        <ram:ApplicableHeaderTradeSettlement>
+            <ram:InvoiceCurrencyCode>EUR</ram:InvoiceCurrencyCode>
+            <ram:SpecifiedTradeSettlementPaymentMeans>
+                <ram:TypeCode>58</ram:TypeCode>
+                <ram:PayeePartyCreditorFinancialAccount>
+                    <ram:IBANID>DE39592520460050005006</ram:IBANID>
+                </ram:PayeePartyCreditorFinancialAccount>
+            </ram:SpecifiedTradeSettlementPaymentMeans>
+            <ram:ApplicableTradeTax>
+                <ram:CalculatedAmount>${vat}</ram:CalculatedAmount>
+                <ram:TypeCode>VAT</ram:TypeCode>
+                <ram:BasisAmount>${net}</ram:BasisAmount>
+                <ram:CategoryCode>S</ram:CategoryCode>
+                <ram:RateApplicablePercent>19.00</ram:RateApplicablePercent>
+            </ram:ApplicableTradeTax>
+            <ram:SpecifiedTradeSettlementHeaderMonetarySummation>
+                <ram:LineTotalAmount>${net}</ram:LineTotalAmount>
+                <ram:TaxBasisTotalAmount>${net}</ram:TaxBasisTotalAmount>
+                <ram:TaxTotalAmount currencyID="EUR">${vat}</ram:TaxTotalAmount>
+                <ram:GrandTotalAmount>${gross}</ram:GrandTotalAmount>
+                <ram:DuePayableAmount>${gross}</ram:DuePayableAmount>
+            </ram:SpecifiedTradeSettlementHeaderMonetarySummation>
+        </ram:ApplicableHeaderTradeSettlement>
+    </rsm:SupplyChainTradeTransaction>
+</rsm:CrossIndustryInvoice>`;
+
+    const blob = new Blob([xml], { type: 'application/xml;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.setAttribute('download', `ZUGFeRD_2.2_${invNr}.xml`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+async function convertProposalToInvoice(proposalId) {
+    const prop = allProposals.find(p => p.id == proposalId);
+    if (!prop) return;
+
+    const invoiceNr = 'RE-2026-' + Math.floor(1000 + Math.random() * 9000);
+    const invoicePayload = {
+        invoice_nr: invoiceNr,
+        client_name: prop.client_name,
+        client_email: prop.client_email || '',
+        total_net: parseFloat(prop.total_net || 0),
+        vat: parseFloat(prop.vat || 0),
+        total_gross: parseFloat(prop.total_gross || 0),
+        status: 'unpaid'
+    };
+
+    try {
+        const res = await fetch('api/db_crud.php?table=invoices', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(invoicePayload)
+        });
+        if (res.ok) {
+            await fetch('api/db_crud.php?table=proposals', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ id: proposalId, status: 'accepted', action: 'update' })
+            });
+            loadProposals();
+            loadInvoices();
+        }
+    } catch (e) {
+        console.error('Invoice conversion error:', e);
+    }
 }
 
 document.addEventListener('DOMContentLoaded', () => {

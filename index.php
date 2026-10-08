@@ -67,6 +67,9 @@ $page_title = 'Control Center v3 • ' . ucfirst(str_replace('_', ' ', $view));
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- Cyber Design System -->
     <link rel="stylesheet" href="00_brand_dna/cyber_design_system.css">
+    <!-- PWA Manifest & Theme -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0A0A0F">
     <style>
         body {
             background-color: var(--cc-bg, #0A0A0F);
@@ -151,6 +154,17 @@ $page_title = 'Control Center v3 • ' . ucfirst(str_replace('_', ' ', $view));
             <span class="text-cyan-500/80">PRJ-2026-0001_ControlCenter_v3 • 100% Zero-Defect Architecture</span>
         </div>
     </footer>
+
+    <!-- Service Worker Registration for CCv3 PWA -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then((reg) => console.log('[CCv3 PWA] Service Worker registered with scope:', reg.scope))
+                    .catch((err) => console.warn('[CCv3 PWA] Service Worker registration skipped:', err));
+            });
+        }
+    </script>
 
 </body>
 </html>
