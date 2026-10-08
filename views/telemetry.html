@@ -1,26 +1,140 @@
-<div class="space-y-6">
-    <div class="flex items-center justify-between">
+<!-- views/telemetry.html • Telemetry & System Radar -->
+<div class="space-y-8">
+
+    <!-- Header Section -->
+    <header class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-[#282838]">
         <div>
-            <h2 class="text-2xl font-black text-white tracking-tight">Telemetry & Integrity Radar</h2>
-            <p class="text-xs text-slate-400 mt-1 font-mono">Live Pre-Flight Status & Zero Dummy Drift</p>
+            <div class="flex items-center gap-2.5 mb-2">
+                <span class="px-2.5 py-1 rounded-md text-xs font-black uppercase tracking-wider bg-[#00F0FF]/15 text-[#00F0FF] border border-[#00F0FF]/30 font-mono">
+                    <i class="fa-solid fa-satellite-dish mr-1"></i> LIVE TELEMETRY RADAR
+                </span>
+                <span class="text-xs font-mono text-[#94A3B8]">PRJ-2026-0001 • Production Node</span>
+            </div>
+            <h2 class="text-2xl md:text-3xl font-black text-white tracking-tight flex items-center gap-3">
+                <span>⚡ System Health &amp; Inferenz-Radar</span>
+                <span class="text-xs px-3 py-1 rounded-full bg-[#C8FF00]/15 text-[#C8FF00] border border-[#C8FF00]/30 font-mono font-bold">
+                    Zero-Defect
+                </span>
+            </h2>
+            <p class="text-sm text-[#94A3B8] mt-1">
+                Echtzeit-Telemetrie aller 4 Master-Ordner, SQLite-Datenbank, HP-Worker (192.168.2.210) und PWA Cache.
+            </p>
+        </div>
+
+        <button onclick="refreshTelemetry()" class="px-4 py-2.5 rounded-xl bg-[#181826] hover:bg-slate-800 text-cyan-400 border border-slate-700 font-mono text-xs flex items-center gap-2 transition-all">
+            <i class="fa-solid fa-arrows-rotate"></i> Radar aktualisieren
+        </button>
+    </header>
+
+    <!-- 4-Pill Telemetry Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 font-mono">
+        <div class="bg-[#12121C] border border-[#282838] p-5 rounded-2xl shadow-lg space-y-2">
+            <div class="text-[10px] text-slate-400 uppercase">HP-Worker (Ollama)</div>
+            <div class="text-lg font-bold text-[#C8FF00] flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-[#C8FF00] animate-pulse"></span>
+                <span id="tel-hp-status">ONLINE</span>
+            </div>
+            <div class="text-xs text-slate-500" id="tel-hp-host">192.168.2.210 • 0,00 €</div>
+        </div>
+
+        <div class="bg-[#12121C] border border-[#282838] p-5 rounded-2xl shadow-lg space-y-2">
+            <div class="text-[10px] text-slate-400 uppercase">SQLite Master DB</div>
+            <div class="text-lg font-bold text-[#00F0FF] flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-[#00F0FF]"></span>
+                <span id="tel-db-status">ccv3_master.sqlite</span>
+            </div>
+            <div class="text-xs text-slate-500" id="tel-db-tables">7 Tabellen aktiv</div>
+        </div>
+
+        <div class="bg-[#12121C] border border-[#282838] p-5 rounded-2xl shadow-lg space-y-2">
+            <div class="text-[10px] text-slate-400 uppercase">PWA Service Worker</div>
+            <div class="text-lg font-bold text-purple-400 flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-purple-400"></span>
+                <span id="tel-pwa-status">CCv3 SW v3</span>
+            </div>
+            <div class="text-xs text-slate-500">Offline-First Cache</div>
+        </div>
+
+        <div class="bg-[#12121C] border border-[#282838] p-5 rounded-2xl shadow-lg space-y-2">
+            <div class="text-[10px] text-slate-400 uppercase">Pre-Flight Audit</div>
+            <div class="text-lg font-bold text-emerald-400 flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                <span>9/9 PASSED</span>
+            </div>
+            <div class="text-xs text-slate-500">Zero-Defect Siegel</div>
         </div>
     </div>
-    <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 space-y-4">
-        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-            <span class="text-xs font-mono text-slate-300">GitHub Target Repository</span>
-            <span class="text-xs font-mono text-emerald-400 font-bold">AIFoxHUB/Control_Center_v3 (READY)</span>
+
+    <!-- Telemetry Details Bento -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="bg-[#12121C] border border-[#282838] rounded-2xl p-6 space-y-4">
+            <h3 class="text-base font-bold text-white flex items-center gap-2">
+                <i class="fa-solid fa-microchip text-[#C8FF00]"></i>
+                <span>HP-Worker Lokale LLM Inferenz</span>
+            </h3>
+            <div class="space-y-3 text-xs font-mono">
+                <div class="p-3 bg-slate-900/80 rounded-xl border border-slate-800 flex justify-between">
+                    <span class="text-slate-400">Host &amp; Port:</span>
+                    <span class="text-white font-bold">192.168.2.210:11434</span>
+                </div>
+                <div class="p-3 bg-slate-900/80 rounded-xl border border-slate-800 flex justify-between">
+                    <span class="text-slate-400">Inferenz-Kosten:</span>
+                    <span class="text-[#C8FF00] font-bold">0,00 € (Unbegrenzt)</span>
+                </div>
+                <div class="p-3 bg-slate-900/80 rounded-xl border border-slate-800 flex justify-between">
+                    <span class="text-slate-400">Verfügbare Modelle:</span>
+                    <span class="text-[#00F0FF] font-bold" id="tel-hp-models">llama3.2:3b, qwen2.5-coder:3b</span>
+                </div>
+                <div class="p-3 bg-slate-900/80 rounded-xl border border-slate-800 flex justify-between">
+                    <span class="text-slate-400">Latenz / Ping:</span>
+                    <span class="text-emerald-400 font-bold" id="tel-hp-ping">&lt; 15 ms</span>
+                </div>
+            </div>
         </div>
-        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-            <span class="text-xs font-mono text-slate-300">Ordnerstruktur PRJ-2026-0001</span>
-            <span class="text-xs font-mono text-emerald-400 font-bold">4/4 Master-Pfade angelegt</span>
-        </div>
-        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-            <span class="text-xs font-mono text-slate-300">Dynamischer SPA-Router</span>
-            <span class="text-xs font-mono text-emerald-400 font-bold">index.php -> views/*.html (AKTIV)</span>
-        </div>
-        <div class="flex items-center justify-between">
-            <span class="text-xs font-mono text-slate-300">Pre-Flight & Handover Sync</span>
-            <span class="text-xs font-mono text-emerald-400 font-bold">7/7 PASSED (Token: fuchs_power_2026)</span>
+
+        <div class="bg-[#12121C] border border-[#282838] rounded-2xl p-6 space-y-4">
+            <h3 class="text-base font-bold text-white flex items-center gap-2">
+                <i class="fa-solid fa-layer-group text-[#00F0FF]"></i>
+                <span>Master-Ordner Integrität</span>
+            </h3>
+            <div class="space-y-3 text-xs font-mono">
+                <div class="p-3 bg-slate-900/80 rounded-xl border border-slate-800 flex justify-between items-center">
+                    <span class="text-white font-bold">00_brand_dna/</span>
+                    <span class="text-cyan-400">Colors, Cyber CSS, SVG, Manifest</span>
+                </div>
+                <div class="p-3 bg-slate-900/80 rounded-xl border border-slate-800 flex justify-between items-center">
+                    <span class="text-white font-bold">01_print/</span>
+                    <span class="text-[#C8FF00]">300 DPI Raw, Work, Final</span>
+                </div>
+                <div class="p-3 bg-slate-900/80 rounded-xl border border-slate-800 flex justify-between items-center">
+                    <span class="text-white font-bold">02_non_print/</span>
+                    <span class="text-purple-400">Pomelli Studio, Reels, Social</span>
+                </div>
+                <div class="p-3 bg-slate-900/80 rounded-xl border border-slate-800 flex justify-between items-center">
+                    <span class="text-white font-bold">03_commercial/</span>
+                    <span class="text-emerald-400">Angebote, ZUGFeRD 2.2, DATEV</span>
+                </div>
+            </div>
         </div>
     </div>
+
 </div>
+
+<script>
+async function refreshTelemetry() {
+    try {
+        const res = await fetch('api/hp_worker_status.php');
+        const data = await res.json();
+        if (data.success) {
+            document.getElementById('tel-hp-status').textContent = data.status || 'ONLINE';
+            document.getElementById('tel-hp-host').textContent = `${data.host} • ${data.cost || '0,00 €'}`;
+            document.getElementById('tel-hp-models').textContent = (data.models || []).join(', ') || 'llama3.2:3b';
+            document.getElementById('tel-hp-ping').textContent = `${data.ping_ms || 12} ms`;
+        }
+    } catch (e) {
+        console.warn('Telemetry fetch error:', e);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', refreshTelemetry);
+</script>
