@@ -1,4 +1,4 @@
-﻿<!-- views/commercial.html • Commercial & Compliance Deck (03_commercial) -->
+<!-- views/commercial.html • Commercial & Compliance Deck (03_commercial) -->
 <div class="space-y-8">
 
     <!-- Header Section -->
@@ -78,9 +78,52 @@
 
         </div>
 
-        <!-- Rechte Spalte: Kanonische Finanzstammdaten & IBANs (5 Cols) -->
+        <!-- Rechte Spalte: Kanonische Finanzstammdaten, SKR03 & DATEV Export (5 Cols) -->
         <div class="lg:col-span-5 space-y-6">
             
+            <!-- DATEV & SKR03 Export Card -->
+            <div class="bg-[#12121C] border border-[#282838] rounded-2xl p-6 space-y-4 shadow-xl">
+                <div class="flex items-center justify-between border-b border-[#282838] pb-3">
+                    <h3 class="text-base font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-file-csv text-[#00F0FF]"></i>
+                        <span>DATEV Buchungsstapel &amp; SKR03</span>
+                    </h3>
+                    <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-950 text-[#00F0FF] border border-cyan-800 font-bold">
+                        ELSTER Ready
+                    </span>
+                </div>
+
+                <div class="space-y-3 text-xs font-mono">
+                    <div class="p-3 bg-slate-900/90 rounded-xl border border-slate-800 space-y-2">
+                        <div class="text-white font-bold flex items-center justify-between">
+                            <span>SKR03 Mandanten-Konten</span>
+                            <span class="text-[10px] text-slate-400">Standard 2026</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2 text-[11px]">
+                            <div class="p-2 bg-slate-950 rounded border border-slate-800/80">
+                                <div class="text-cyan-400 font-bold">it_signs (B2B)</div>
+                                <div class="text-slate-400 text-[10px] mt-0.5">Erlöse 19%: Kto 8400</div>
+                                <div class="text-slate-400 text-[10px]">Bank: Kto 1200</div>
+                            </div>
+                            <div class="p-2 bg-slate-950 rounded border border-slate-800/80">
+                                <div class="text-amber-400 font-bold">champagner_fuchs</div>
+                                <div class="text-slate-400 text-[10px] mt-0.5">Erlöse 19%: Kto 8400</div>
+                                <div class="text-slate-400 text-[10px]">Bank: Kto 1210</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                        <button type="button" onclick="exportDatevCsv('it_signs')" class="flex-1 py-2.5 px-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-bold text-xs flex items-center justify-center gap-1.5 hover:opacity-90 shadow-md">
+                            <i class="fa-solid fa-download"></i> DATEV IT-Signs CSV
+                        </button>
+                        <button type="button" onclick="exportDatevCsv('champagner_fuchs')" class="flex-1 py-2.5 px-3 rounded-xl bg-gradient-to-r from-amber-400 to-orange-500 text-slate-950 font-bold text-xs flex items-center justify-center gap-1.5 hover:opacity-90 shadow-md">
+                            <i class="fa-solid fa-download"></i> DATEV Fuchs CSV
+                        </button>
+                    </div>
+                </div>
+            </div>
+
             <!-- Regel 14.5: Kanonische Bankverbindungen -->
             <div class="bg-[#12121C] border border-[#282838] rounded-2xl p-6 space-y-4 shadow-xl">
                 <div class="flex items-center justify-between border-b border-[#282838] pb-3">
@@ -98,24 +141,24 @@
                     <div class="p-3.5 bg-slate-900/80 rounded-xl border border-slate-800 space-y-1.5">
                         <div class="flex items-center justify-between">
                             <span class="font-bold text-white">IT-Signs (B2B &amp; Agentur)</span>
-                            <span class="text-[10px] text-cyan-400">Sparkasse NK</span>
+                            <span class="text-[10px] text-cyan-400 font-bold">SKR03: 1200</span>
                         </div>
                         <div class="text-slate-300 select-all font-bold text-[11px] bg-slate-950 p-2 rounded border border-slate-800/80">
                             DE39 5925 2046 0050 0050 06
                         </div>
-                        <div class="text-[10px] text-slate-500">BLZ: 59252046 • Kto: 0050005006</div>
+                        <div class="text-[10px] text-slate-500">Sparkasse NK • BLZ: 59252046 • Kto: 0050005006</div>
                     </div>
 
                     <!-- Champagner Fuchs -->
                     <div class="p-3.5 bg-slate-900/80 rounded-xl border border-slate-800 space-y-1.5">
                         <div class="flex items-center justify-between">
                             <span class="font-bold text-white">Champagner Fuchs (Shop &amp; Sommelier)</span>
-                            <span class="text-[10px] text-amber-400">Sparkasse NK</span>
+                            <span class="text-[10px] text-amber-400 font-bold">SKR03: 1210</span>
                         </div>
                         <div class="text-slate-300 select-all font-bold text-[11px] bg-slate-950 p-2 rounded border border-slate-800/80">
                             DE12 5925 2046 0100 4570 35
                         </div>
-                        <div class="text-[10px] text-slate-500">BLZ: 59252046 • Kto: 0100457035</div>
+                        <div class="text-[10px] text-slate-500">Sparkasse NK • BLZ: 59252046 • Kto: 0100457035</div>
                     </div>
 
                     <!-- Steuerdaten -->
@@ -134,7 +177,7 @@
                         <i class="fa-solid fa-code mr-1"></i> E-Rechnung 2026 Ready
                     </span>
                     <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800 font-bold">
-                        B2B Pflicht
+                        B2B Pflicht EN 16931
                     </span>
                 </div>
                 <p class="text-xs text-slate-300 leading-relaxed">
@@ -418,6 +461,38 @@ function closeNewProposalModal() {
 function escapeHtml(str) {
     if (!str) return '';
     return str.toString().replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function exportDatevCsv(tenant) {
+    const isFuchs = tenant === 'champagner_fuchs';
+    const bankAccount = isFuchs ? '1210' : '1200';
+    const revenueAccount = '8400';
+    const tenantLabel = isFuchs ? 'Champagner Fuchs' : 'IT-Signs B2B';
+    const items = allInvoices.length > 0 ? allInvoices : allProposals;
+
+    let csvContent = `EXTF;700;21;Buchungsstapel;1;${new Date().toISOString().slice(0,10).replace(/-/g,'')};;;;;"${tenantLabel}";"SKR03"\r\n`;
+    csvContent += `Umsatz (ohne Soll/Haben-Kz);Soll/Haben-Kennzeichen;WKZ;Kurs;Basis-Umsatz;WKZ Basis-Umsatz;Konto;Gegenkonto;BU-Schlssel;Belegdatum;Belegfeld 1;Belegfeld 2;Skonto;Buchungstext\r\n`;
+
+    if (items.length === 0) {
+        alert('Keine Buchungsdaten für den DATEV-Export vorhanden.');
+        return;
+    }
+
+    items.forEach(item => {
+        const gross = parseFloat(item.total_gross || item.total_net || 0).toFixed(2).replace('.', ',');
+        const docNr = item.invoice_nr || item.proposal_nr || 'DOC-2026';
+        const client = (item.client_name || 'Kunde').replace(/"/g, '""');
+        const docDate = (item.created_at || new Date().toISOString()).slice(0,10).replace(/-/g,'');
+        csvContent += `"${gross}";"S";"EUR";"";"";"";"${bankAccount}";"${revenueAccount}";"3";"${docDate.slice(6,8)}${docDate.slice(4,6)}";"${docNr}";"";"";"${client}"\r\n`;
+    });
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=windows-1252;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.setAttribute('download', `DATEV_Buchungsstapel_SKR03_${tenant}_${new Date().toISOString().slice(0,10)}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
