@@ -11,7 +11,9 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'OPTIONS') {
     exit;
 }
 
-$BASE_STORAGE = dirname(__DIR__);
+$APP_ROOT = getenv('APP_ROOT') ?: dirname(__DIR__);
+$BASE_STORAGE = $APP_ROOT;
+$BASE_URL = getenv('BASE_URL') ?: (isset($_SERVER['HTTP_HOST']) ? (($_SERVER['HTTPS'] ?? 'off') === 'on' ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] : '');
 
 // Canonical Category Mapping (Keys to physical project directories)
 $CATEGORY_MAP = [
