@@ -1,0 +1,477 @@
+﻿<!-- views/non_print_hub.html • Social Media & Content Matrix (02_non_print) -->
+<div class="space-y-8">
+
+    <!-- Header Section -->
+    <header class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-[#282838]">
+        <div>
+            <div class="flex items-center gap-2.5 mb-2">
+                <span class="px-2.5 py-1 rounded-md text-xs font-black uppercase tracking-wider bg-[#00F0FF]/15 text-[#00F0FF] border border-[#00F0FF]/30 font-mono">
+                    <i class="fa-solid fa-hashtag mr-1"></i> 02_NON_PRINT &amp; SOCIAL
+                </span>
+                <span class="text-xs font-mono text-[#94A3B8]">Content-Matrix • 2-Stufen Visual Commitment</span>
+            </div>
+            <h2 class="text-2xl md:text-3xl font-black text-white tracking-tight flex items-center gap-3">
+                <span>📱 Social Media &amp; Content-Matrix Deck</span>
+                <span class="text-xs px-3 py-1 rounded-full bg-[#C8FF00]/15 text-[#C8FF00] border border-[#C8FF00]/30 font-mono font-bold">
+                    Omnichannel 8K
+                </span>
+            </h2>
+            <p class="text-sm text-[#94A3B8] mt-1">
+                Autonomes Redaktionsdeck für die 4 Master-Brands mit Text-First-Synthese und Rolling-Slot-Scheduler.
+            </p>
+        </div>
+
+        <!-- Brand Filter Tabs -->
+        <div class="flex flex-wrap items-center gap-2 font-mono text-xs">
+            <button onclick="switchBrand('all')" class="brand-tab px-3 py-2 rounded-xl bg-[#00F0FF]/15 text-[#00F0FF] border border-[#00F0FF]/30 font-bold active" data-brand="all">
+                Alle Accounts
+            </button>
+            <button onclick="switchBrand('it_signs')" class="brand-tab px-3 py-2 rounded-xl bg-[#12121C] border border-[#282838] text-slate-300 hover:text-white" data-brand="it_signs">
+                @it_signs
+            </button>
+            <button onclick="switchBrand('champagnerfuchs')" class="brand-tab px-3 py-2 rounded-xl bg-[#12121C] border border-[#282838] text-slate-300 hover:text-white" data-brand="champagnerfuchs">
+                @champagnerfuchs
+            </button>
+            <button onclick="switchBrand('secretfox')" class="brand-tab px-3 py-2 rounded-xl bg-[#12121C] border border-[#282838] text-slate-300 hover:text-white" data-brand="secretfox">
+                @secretfox.life
+            </button>
+            <button onclick="switchBrand('fuchspatrice')" class="brand-tab px-3 py-2 rounded-xl bg-[#12121C] border border-[#282838] text-slate-300 hover:text-white" data-brand="fuchspatrice">
+                @fuchspatrice
+            </button>
+        </div>
+    </header>
+
+    <!-- 2-Column Bento Grid: Matrix Feed + 2-Stage Composer -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- Linke Spalte: Content Posts Liste & Scheduler (7 Cols) -->
+        <div class="lg:col-span-7 space-y-6">
+            
+            <div class="bg-[#12121C] border border-[#282838] rounded-2xl p-6 space-y-4 shadow-xl">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-base font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-calendar-days text-[#00F0FF]"></i>
+                        <span id="active-brand-title">Alle Veröffentlichungen &amp; Slots</span>
+                    </h3>
+                    <div class="flex items-center gap-2">
+                        <button onclick="openNewPostModal()" class="px-3 py-1.5 rounded-lg bg-cyan-500/20 text-cyan-300 hover:bg-cyan-500/30 border border-cyan-500/40 text-xs font-mono font-bold flex items-center gap-1.5">
+                            <i class="fa-solid fa-plus"></i> Neuer Beitrag
+                        </button>
+                        <button onclick="loadContentPosts()" class="text-xs text-[#94A3B8] hover:text-white font-mono p-1" title="Reload">
+                            <i class="fa-solid fa-arrows-rotate"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="content-posts-container" class="space-y-3">
+                    <div class="text-xs font-mono text-slate-500 py-6 text-center">Lade Beiträge...</div>
+                </div>
+            </div>
+
+            <!-- Regel 9: 2-Stufen-Commitment Info Card -->
+            <div class="bg-gradient-to-br from-[#12121C] to-[#16162a] border border-[#00F0FF]/30 rounded-2xl p-5 space-y-2">
+                <div class="flex items-center justify-between">
+                    <span class="text-xs font-mono font-bold text-[#00F0FF] uppercase tracking-wider">
+                        <i class="fa-solid fa-shield-halved mr-1"></i> Regel 9: Visual Commitment Axiom
+                    </span>
+                    <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">
+                        100% Harmonie
+                    </span>
+                </div>
+                <p class="text-xs text-slate-300 leading-relaxed">
+                    <strong>1. Text-First:</strong> Semantischer Inhalt wird vollständig formuliert.<br>
+                    <strong>2. Motiv-Synthese:</strong> Der 8K Visual Prompt wird 1:1 aus dem konkreten Text generiert. Keine unpassenden Zufallsbilder.
+                </p>
+            </div>
+
+        </div>
+
+        <!-- Rechte Spalte: Media Bridge Uploads für 02_non_print (5 Cols) -->
+        <div class="lg:col-span-5 space-y-6">
+            
+            <div class="bg-[#12121C] border border-[#282838] rounded-2xl p-6 space-y-4 shadow-xl">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-base font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-photo-film text-[#C8FF00]"></i>
+                        <span>Social Media Bridge</span>
+                    </h3>
+                    <span class="text-xs font-mono text-slate-400">02_non_print/</span>
+                </div>
+
+                <!-- Dropzone -->
+                <div id="social-dropzone" onclick="document.getElementById('social-file-input').click()" class="border-2 border-dashed border-[#282838] hover:border-[#C8FF00] rounded-xl p-6 text-center cursor-pointer transition-all bg-slate-950/40 group">
+                    <input type="file" id="social-file-input" class="hidden" accept=".png,.jpg,.jpeg,.webp,.avif,.mp4,.gif" onchange="uploadSocialFile(this.files[0])">
+                    <div class="w-12 h-12 rounded-xl bg-[#C8FF00]/10 text-[#C8FF00] flex items-center justify-center mx-auto mb-3 text-xl group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-film"></i>
+                    </div>
+                    <div class="text-xs font-bold text-white">Visuals &amp; Reels per Drag &amp; Drop ablegen</div>
+                    <div class="text-[11px] text-slate-500 font-mono mt-1">PNG, JPG, WebP, MP4 (max. 100 MB)</div>
+                </div>
+
+                <!-- Recent Social Media Files -->
+                <div class="space-y-2 pt-2">
+                    <div class="flex items-center justify-between text-xs font-mono text-slate-400">
+                        <span>Assets in 02_non_print/</span>
+                        <span id="social-media-count">0 Assets</span>
+                    </div>
+                    <div id="social-media-list" class="space-y-2 max-h-80 overflow-y-auto pr-1">
+                        <div class="text-xs font-mono text-slate-500 py-4 text-center">Lade Dateien...</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Modal: Neuer Content Beitrag -->
+<div id="modal-new-post" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-[#12121C] border border-[#282838] rounded-2xl max-w-lg w-full p-6 space-y-4 shadow-2xl">
+        <div class="flex items-center justify-between border-b border-[#282838] pb-3">
+            <h3 class="text-base font-bold text-white flex items-center gap-2">
+                <i class="fa-solid fa-feather text-[#00F0FF]"></i> Neuer Social Media Beitrag
+            </h3>
+            <button onclick="closeNewPostModal()" class="text-slate-400 hover:text-white">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+        </div>
+
+        <form id="form-new-post" onsubmit="createContentPost(event)" class="space-y-4 text-xs font-mono">
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <label class="block text-slate-300 mb-1">Brand / Account</label>
+                    <select id="post-brand" class="w-full bg-slate-900 border border-[#282838] focus:border-[#00F0FF] rounded-xl px-3 py-2 text-white outline-none">
+                        <option value="it_signs">@it_signs (Agentur)</option>
+                        <option value="champagnerfuchs">@champagnerfuchs</option>
+                        <option value="secretfox">@secretfox.life</option>
+                        <option value="fuchspatrice">@fuchspatrice (Creator)</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-slate-300 mb-1">Kanal</label>
+                    <select id="post-channel" class="w-full bg-slate-900 border border-[#282838] focus:border-[#00F0FF] rounded-xl px-3 py-2 text-white outline-none">
+                        <option value="instagram">Instagram (1:1 / 4:5)</option>
+                        <option value="pinterest">Pinterest (2:3)</option>
+                        <option value="linkedin">LinkedIn</option>
+                        <option value="tiktok_reels">Reel / Video (9:16)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-slate-300 mb-1">Headline / Thema</label>
+                <input type="text" id="post-title" required placeholder="z. B. Champagne Lepreux-Penet Grand Cru Herbstlese" class="w-full bg-slate-900 border border-[#282838] focus:border-[#00F0FF] rounded-xl px-3 py-2 text-white outline-none">
+            </div>
+
+            <div>
+                <label class="block text-slate-300 mb-1">Copywriting &amp; Caption (Text-First)</label>
+                <textarea id="post-caption" rows="3" required placeholder="Vollständiger Post-Text mit Call-to-Action..." class="w-full bg-slate-900 border border-[#282838] focus:border-[#00F0FF] rounded-xl px-3 py-2 text-white outline-none"></textarea>
+            </div>
+
+            <div>
+                <label class="block text-slate-300 mb-1">Visual Prompt (Englisch 8K - Stufe 2)</label>
+                <input type="text" id="post-visual-prompt" placeholder="two identical crystal champagne flutes on dark slate bistro table..." class="w-full bg-slate-900 border border-[#282838] focus:border-[#00F0FF] rounded-xl px-3 py-2 text-white outline-none">
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <label class="block text-slate-300 mb-1">Status</label>
+                    <select id="post-status" class="w-full bg-slate-900 border border-[#282838] focus:border-[#00F0FF] rounded-xl px-3 py-2 text-white outline-none">
+                        <option value="scheduled">Geplant (Scheduled)</option>
+                        <option value="draft">Entwurf (Draft)</option>
+                        <option value="published">Veröffentlicht</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-slate-300 mb-1">Slot-Datum / Zeit</label>
+                    <input type="datetime-local" id="post-scheduled-at" class="w-full bg-slate-900 border border-[#282838] focus:border-[#00F0FF] rounded-xl px-3 py-2 text-white outline-none">
+                </div>
+            </div>
+
+            <div class="pt-3 flex justify-end gap-2">
+                <button type="button" onclick="closeNewPostModal()" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700">
+                    Abbrechen
+                </button>
+                <button type="submit" class="px-4 py-2 rounded-xl bg-[#00F0FF] text-slate-950 font-bold hover:opacity-90">
+                    Beitrag speichern
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+let allContentPosts = [];
+let currentBrandFilter = 'all';
+
+async function loadContentPosts() {
+    const container = document.getElementById('content-posts-container');
+    try {
+        const queryUrl = currentBrandFilter === 'all' 
+            ? 'api/db_crud.php?table=content_posts' 
+            : 'api/db_crud.php?table=content_posts&brand=' + encodeURIComponent(currentBrandFilter);
+        
+        const res = await fetch(queryUrl);
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const json = await res.json();
+        allContentPosts = json.data || [];
+        
+        if (allContentPosts.length === 0 && currentBrandFilter === 'all') {
+            await seedInitialContentPosts();
+            return;
+        }
+
+        renderContentPosts(allContentPosts);
+    } catch (e) {
+        console.error('Content posts fetch error:', e);
+        container.innerHTML = '<div class="text-xs text-rose-400 font-mono py-4">Fehler beim Laden der Beiträge.</div>';
+    }
+}
+
+async function seedInitialContentPosts() {
+    const samples = [
+        {
+            brand: 'it_signs',
+            title: 'Autonome KI-Agenten im B2B-Mittelstand',
+            hook: 'Warum 0€ HP-Worker Architekturen Cloud-Budgets um 90% schonen.',
+            caption: 'Entdecke das IT-Signs Control Center v3 mit nativer Token-Minimizer Engine und lückenloser DSGVO-Compliance.',
+            visual_prompt: 'sleek server rack illuminated by cyan neon lights in high-tech studio, dark minimalist atmosphere, 8k resolution, crisp detail, 35mm lens',
+            channel: 'linkedin',
+            status: 'scheduled',
+            scheduled_at: new Date(Date.now() + 86400000).toISOString().slice(0, 16)
+        },
+        {
+            brand: 'champagnerfuchs',
+            title: 'Maison Lepreux-Penet: Das Terroir von Verzy Grand Cru',
+            hook: 'Zarte Perlage und jahrhundertealte Winzertradition.',
+            caption: 'Echte französische Handwerkskunst aus der Champagne direkt zu Ihnen nach Hause geliefert.',
+            visual_prompt: 'two identical elegant crystal champagne flutes on dark slate bistro table with warm subtle candlelight, fine rising stream of delicate micro-bubbles, no deformed glass, 8k photo',
+            channel: 'instagram',
+            status: 'scheduled',
+            scheduled_at: new Date(Date.now() + 172800000).toISOString().slice(0, 16)
+        },
+        {
+            brand: 'secretfox',
+            title: 'Velvet Whisper: Diskrete Eleganz für den Alltag',
+            hook: 'Exklusive Lounge- und Seidenmode mit feinsten Stoffen.',
+            caption: 'Finde deine persönliche Wohlfühl-Kollektion in unserer Secret Boutique.',
+            visual_prompt: 'flatlay of elegant silk loungewear neatly folded on natural linen fabric, delicate soft morning light, editorial aesthetic, 8k photo',
+            channel: 'pinterest',
+            status: 'draft',
+            scheduled_at: new Date(Date.now() + 259200000).toISOString().slice(0, 16)
+        }
+    ];
+
+    for (const p of samples) {
+        await fetch('api/db_crud.php?table=content_posts', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(p)
+        });
+    }
+    loadContentPosts();
+}
+
+function renderContentPosts(posts) {
+    const container = document.getElementById('content-posts-container');
+    if (!posts || posts.length === 0) {
+        container.innerHTML = '<div class="text-xs text-slate-500 font-mono py-4 text-center">Keine Beiträge für diesen Filter vorhanden.</div>';
+        return;
+    }
+
+    const brandBadge = (b) => {
+        switch(b) {
+            case 'it_signs': return '<span class="px-2 py-0.5 rounded bg-cyan-950 text-cyan-400 border border-cyan-800 text-[10px] font-mono">@it_signs</span>';
+            case 'champagnerfuchs': return '<span class="px-2 py-0.5 rounded bg-amber-950 text-amber-300 border border-amber-800 text-[10px] font-mono">@champagnerfuchs</span>';
+            case 'secretfox': return '<span class="px-2 py-0.5 rounded bg-rose-950 text-rose-300 border border-rose-800 text-[10px] font-mono">@secretfox.life</span>';
+            case 'fuchspatrice': return '<span class="px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-800 text-[10px] font-mono">@fuchspatrice</span>';
+            default: return `<span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 text-[10px] font-mono">@${escapeHtml(b)}</span>`;
+        }
+    };
+
+    const statusBadge = (st) => {
+        switch(st) {
+            case 'published': return '<span class="text-emerald-400 text-[10px] font-mono font-bold"><i class="fa-solid fa-circle-check mr-1"></i>Live</span>';
+            case 'scheduled': return '<span class="text-cyan-400 text-[10px] font-mono font-bold"><i class="fa-solid fa-clock mr-1"></i>Geplant</span>';
+            default: return '<span class="text-slate-400 text-[10px] font-mono"><i class="fa-solid fa-pen-ruler mr-1"></i>Draft</span>';
+        }
+    };
+
+    container.innerHTML = posts.map(p => `
+        <div class="p-4 bg-slate-900/70 border border-[#282838] hover:border-slate-700 rounded-xl space-y-2 transition-colors">
+            <div class="flex items-center justify-between gap-2">
+                <div class="flex items-center gap-2">
+                    ${brandBadge(p.brand)}
+                    <span class="font-bold text-white text-xs truncate max-w-[240px]">${escapeHtml(p.title)}</span>
+                </div>
+                <div class="flex items-center gap-2 shrink-0">
+                    ${statusBadge(p.status)}
+                    <button onclick="deleteContentPost(${p.id})" class="text-slate-500 hover:text-rose-400 p-1" title="Löschen">
+                        <i class="fa-solid fa-trash-can text-xs"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <p class="text-[11px] text-slate-300 line-clamp-2 leading-relaxed font-sans">
+                ${escapeHtml(p.caption || p.hook || '')}
+            </p>
+
+            ${p.visual_prompt ? `
+                <div class="text-[10px] font-mono bg-slate-950/80 p-2 rounded-lg border border-slate-800/80 text-cyan-400/90 truncate">
+                    <i class="fa-solid fa-wand-magic mr-1 text-[#C8FF00]"></i>${escapeHtml(p.visual_prompt)}
+                </div>
+            ` : ''}
+
+            <div class="pt-1 flex items-center justify-between text-[10px] font-mono text-slate-500 border-t border-slate-800/50">
+                <span><i class="fa-solid fa-share-nodes mr-1"></i>${escapeHtml(p.channel || 'social')}</span>
+                <span><i class="fa-regular fa-clock mr-1"></i>${p.scheduled_at ? new Date(p.scheduled_at).toLocaleString('de-DE') : 'Sofort'}</span>
+            </div>
+        </div>
+    `).join('');
+}
+
+function switchBrand(brand) {
+    currentBrandFilter = brand;
+    document.querySelectorAll('.brand-tab').forEach(b => {
+        b.classList.remove('active', 'bg-[#00F0FF]/15', 'text-[#00F0FF]', 'border-[#00F0FF]/30', 'font-bold');
+        if (b.getAttribute('data-brand') === brand) {
+            b.classList.add('active', 'bg-[#00F0FF]/15', 'text-[#00F0FF]', 'border-[#00F0FF]/30', 'font-bold');
+        }
+    });
+
+    const titleMap = {
+        all: 'Alle Veröffentlichungen & Slots',
+        it_signs: '@it_signs • Tech & B2B Content Feed',
+        champagnerfuchs: '@champagnerfuchs • Sommelier & Terroir Feed',
+        secretfox: '@secretfox.life • Secret Boutique Feed',
+        fuchspatrice: '@fuchspatrice • Personal & Creator Feed'
+    };
+    document.getElementById('active-brand-title').textContent = titleMap[brand] || 'Content Feed';
+
+    loadContentPosts();
+}
+
+async function createContentPost(e) {
+    e.preventDefault();
+    const payload = {
+        brand: document.getElementById('post-brand').value,
+        channel: document.getElementById('post-channel').value,
+        title: document.getElementById('post-title').value.trim(),
+        caption: document.getElementById('post-caption').value.trim(),
+        visual_prompt: document.getElementById('post-visual-prompt').value.trim(),
+        status: document.getElementById('post-status').value,
+        scheduled_at: document.getElementById('post-scheduled-at').value || null
+    };
+
+    try {
+        const res = await fetch('api/db_crud.php?table=content_posts', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(payload)
+        });
+        if (res.ok) {
+            closeNewPostModal();
+            document.getElementById('form-new-post').reset();
+            loadContentPosts();
+        }
+    } catch (e) {
+        console.error('Create post error:', e);
+    }
+}
+
+async function deleteContentPost(id) {
+    if (!confirm('Diesen Beitrag wirklich löschen?')) return;
+    try {
+        await fetch('api/db_crud.php?table=content_posts&id=' + id, { method: 'DELETE' });
+        loadContentPosts();
+    } catch (e) {
+        console.error('Delete post error:', e);
+    }
+}
+
+async function loadSocialMedia() {
+    const listEl = document.getElementById('social-media-list');
+    const countEl = document.getElementById('social-media-count');
+    try {
+        const res = await fetch('api/storage.php?category=02_non_print');
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const json = await res.json();
+        const files = json.files || [];
+        countEl.textContent = files.length + ' Assets';
+
+        if (files.length === 0) {
+            listEl.innerHTML = '<div class="text-xs text-slate-500 font-mono py-4 text-center">Keine Dateien in 02_non_print/ vorhanden.</div>';
+            return;
+        }
+
+        listEl.innerHTML = files.map(f => `
+            <div class="p-2.5 bg-slate-900/60 border border-[#282838] rounded-xl flex items-center justify-between gap-3 text-xs font-mono">
+                <div class="flex items-center gap-2 truncate">
+                    <i class="fa-solid ${f.is_image ? 'fa-image text-[#C8FF00]' : 'fa-video text-[#00F0FF]'}"></i>
+                    <span class="text-slate-200 truncate" title="${escapeHtml(f.name)}">${escapeHtml(f.name)}</span>
+                </div>
+                <div class="flex items-center gap-2 shrink-0">
+                    <span class="text-[10px] text-slate-500">${formatBytes(f.size)}</span>
+                    <a href="${f.url}" target="_blank" class="text-cyan-400 hover:text-cyan-300 p-1" title="Öffnen">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                </div>
+            </div>
+        `).join('');
+    } catch (e) {
+        listEl.innerHTML = '<div class="text-xs text-slate-500 font-mono py-4 text-center">0 Assets verfügbar.</div>';
+    }
+}
+
+async function uploadSocialFile(file) {
+    if (!file) return;
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('category', '02_non_print');
+
+    try {
+        const res = await fetch('api/storage.php', {
+            method: 'POST',
+            body: formData
+        });
+        if (res.ok) {
+            loadSocialMedia();
+        } else {
+            alert('Upload fehlgeschlagen.');
+        }
+    } catch (e) {
+        console.error('Upload error:', e);
+    }
+}
+
+function openNewPostModal() {
+    const m = document.getElementById('modal-new-post');
+    m.classList.remove('hidden');
+    m.classList.add('flex');
+}
+function closeNewPostModal() {
+    const m = document.getElementById('modal-new-post');
+    m.classList.remove('flex');
+    m.classList.add('hidden');
+}
+
+function formatBytes(bytes) {
+    if (!bytes || bytes === 0) return '0 B';
+    const k = 1024;
+    const sizes = ['B', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+}
+
+function escapeHtml(str) {
+    if (!str) return '';
+    return str.toString().replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    loadContentPosts();
+    loadSocialMedia();
+});
+</script>

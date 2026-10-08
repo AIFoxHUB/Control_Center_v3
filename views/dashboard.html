@@ -68,66 +68,90 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <!-- 00_brand_dna -->
-            <div onclick="selectCategory('brand_dna')" class="workspace-card bg-[#12121C] border border-[#282838] hover:border-[#00F0FF] rounded-2xl p-5 cursor-pointer transition-all hover:-translate-y-1 shadow-lg group">
-                <div class="flex items-center justify-between mb-3">
-                    <div class="w-10 h-10 rounded-xl bg-[#00F0FF]/15 text-[#00F0FF] flex items-center justify-center text-lg border border-[#00F0FF]/30 group-hover:scale-110 transition-transform">
-                        <i class="fa-solid fa-dna"></i>
+            <div class="workspace-card bg-[#12121C] border border-[#282838] hover:border-[#00F0FF] rounded-2xl p-5 transition-all hover:-translate-y-1 shadow-lg group flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="w-10 h-10 rounded-xl bg-[#00F0FF]/15 text-[#00F0FF] flex items-center justify-center text-lg border border-[#00F0FF]/30 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-dna"></i>
+                        </div>
+                        <span class="text-[11px] font-mono font-bold px-2 py-0.5 rounded bg-slate-800 text-slate-300">DNA</span>
                     </div>
-                    <span class="text-[11px] font-mono font-bold px-2 py-0.5 rounded bg-slate-800 text-slate-300">DNA</span>
+                    <h4 class="text-base font-bold text-white group-hover:text-[#00F0FF] transition-colors">00_brand_dna/</h4>
+                    <p class="text-xs text-[#94A3B8] mt-1">Colors, Cyber CSS, SVG Logos, Content-Matrix Manifests</p>
                 </div>
-                <h4 class="text-base font-bold text-white group-hover:text-[#00F0FF] transition-colors">00_brand_dna/</h4>
-                <p class="text-xs text-[#94A3B8] mt-1">Colors, Cyber CSS, SVG Logos, Content-Matrix Manifests</p>
-                <div class="mt-4 pt-3 border-t border-[#282838] flex items-center justify-between text-xs font-mono text-[#94A3B8]">
-                    <span>Kategorie: Brand</span>
-                    <span class="text-[#00F0FF] flex items-center gap-1">Öffnen <i class="fa-solid fa-arrow-right text-[10px]"></i></span>
+                <div class="mt-4 pt-3 border-t border-[#282838] flex items-center justify-between text-xs font-mono">
+                    <button type="button" onclick="selectCategory('brand_dna')" class="text-[#94A3B8] hover:text-white flex items-center gap-1 transition">
+                        <i class="fa-solid fa-folder-open text-[10px]"></i> Storage
+                    </button>
+                    <button type="button" onclick="selectCategory('brand_dna')" class="text-[#00F0FF] flex items-center gap-1 hover:underline">
+                        Assets <i class="fa-solid fa-arrow-down text-[10px]"></i>
+                    </button>
                 </div>
             </div>
 
             <!-- 01_print -->
-            <div onclick="selectCategory('print')" class="workspace-card bg-[#12121C] border border-[#282838] hover:border-[#C8FF00] rounded-2xl p-5 cursor-pointer transition-all hover:-translate-y-1 shadow-lg group">
-                <div class="flex items-center justify-between mb-3">
-                    <div class="w-10 h-10 rounded-xl bg-[#C8FF00]/15 text-[#C8FF00] flex items-center justify-center text-lg border border-[#C8FF00]/30 group-hover:scale-110 transition-transform">
-                        <i class="fa-solid fa-print"></i>
+            <div class="workspace-card bg-[#12121C] border border-[#282838] hover:border-[#C8FF00] rounded-2xl p-5 transition-all hover:-translate-y-1 shadow-lg group flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="w-10 h-10 rounded-xl bg-[#C8FF00]/15 text-[#C8FF00] flex items-center justify-center text-lg border border-[#C8FF00]/30 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-print"></i>
+                        </div>
+                        <span class="text-[11px] font-mono font-bold px-2 py-0.5 rounded bg-slate-800 text-slate-300">300 DPI</span>
                     </div>
-                    <span class="text-[11px] font-mono font-bold px-2 py-0.5 rounded bg-slate-800 text-slate-300">300 DPI</span>
+                    <h4 class="text-base font-bold text-white group-hover:text-[#C8FF00] transition-colors">01_print/</h4>
+                    <p class="text-xs text-[#94A3B8] mt-1">POMELLI Vector Express, 300 DPI Vektordaten, B2B-Aufträge</p>
                 </div>
-                <h4 class="text-base font-bold text-white group-hover:text-[#C8FF00] transition-colors">01_print/</h4>
-                <p class="text-xs text-[#94A3B8] mt-1">Raw, Work & Final Druckdaten, Aufkleber, Broschüren, POD</p>
-                <div class="mt-4 pt-3 border-t border-[#282838] flex items-center justify-between text-xs font-mono text-[#94A3B8]">
-                    <span>Kategorie: Print</span>
-                    <span class="text-[#C8FF00] flex items-center gap-1">Öffnen <i class="fa-solid fa-arrow-right text-[10px]"></i></span>
+                <div class="mt-4 pt-3 border-t border-[#282838] flex items-center justify-between text-xs font-mono">
+                    <button type="button" onclick="selectCategory('print')" class="text-[#94A3B8] hover:text-white flex items-center gap-1 transition">
+                        <i class="fa-solid fa-folder-open text-[10px]"></i> Storage
+                    </button>
+                    <a href="?view=print_hub" class="text-[#C8FF00] font-bold flex items-center gap-1 hover:underline">
+                        Print Hub <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                    </a>
                 </div>
             </div>
 
             <!-- 02_non_print -->
-            <div onclick="selectCategory('non_print')" class="workspace-card bg-[#12121C] border border-[#282838] hover:border-purple-500 rounded-2xl p-5 cursor-pointer transition-all hover:-translate-y-1 shadow-lg group">
-                <div class="flex items-center justify-between mb-3">
-                    <div class="w-10 h-10 rounded-xl bg-purple-500/15 text-purple-400 flex items-center justify-center text-lg border border-purple-500/30 group-hover:scale-110 transition-transform">
-                        <i class="fa-solid fa-photo-film"></i>
+            <div class="workspace-card bg-[#12121C] border border-[#282838] hover:border-purple-500 rounded-2xl p-5 transition-all hover:-translate-y-1 shadow-lg group flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="w-10 h-10 rounded-xl bg-purple-500/15 text-purple-400 flex items-center justify-center text-lg border border-purple-500/30 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-photo-film"></i>
+                        </div>
+                        <span class="text-[11px] font-mono font-bold px-2 py-0.5 rounded bg-slate-800 text-slate-300">DIGITAL</span>
                     </div>
-                    <span class="text-[11px] font-mono font-bold px-2 py-0.5 rounded bg-slate-800 text-slate-300">DIGITAL</span>
+                    <h4 class="text-base font-bold text-white group-hover:text-purple-400 transition-colors">02_non_print/</h4>
+                    <p class="text-xs text-[#94A3B8] mt-1">Content-Matrix, 4-Brand Switcher, 2-Stufen-Commitment Prompts</p>
                 </div>
-                <h4 class="text-base font-bold text-white group-hover:text-purple-400 transition-colors">02_non_print/</h4>
-                <p class="text-xs text-[#94A3B8] mt-1">Pomelli Studio Exports, Reels, Web-Graphics, Social Posts</p>
-                <div class="mt-4 pt-3 border-t border-[#282838] flex items-center justify-between text-xs font-mono text-[#94A3B8]">
-                    <span>Kategorie: Media</span>
-                    <span class="text-purple-400 flex items-center gap-1">Öffnen <i class="fa-solid fa-arrow-right text-[10px]"></i></span>
+                <div class="mt-4 pt-3 border-t border-[#282838] flex items-center justify-between text-xs font-mono">
+                    <button type="button" onclick="selectCategory('non_print')" class="text-[#94A3B8] hover:text-white flex items-center gap-1 transition">
+                        <i class="fa-solid fa-folder-open text-[10px]"></i> Storage
+                    </button>
+                    <a href="?view=non_print_hub" class="text-purple-400 font-bold flex items-center gap-1 hover:underline">
+                        Social Matrix <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                    </a>
                 </div>
             </div>
 
             <!-- 03_commercial -->
-            <div onclick="selectCategory('commercial')" class="workspace-card bg-[#12121C] border border-[#282838] hover:border-emerald-500 rounded-2xl p-5 cursor-pointer transition-all hover:-translate-y-1 shadow-lg group">
-                <div class="flex items-center justify-between mb-3">
-                    <div class="w-10 h-10 rounded-xl bg-emerald-500/15 text-emerald-400 flex items-center justify-center text-lg border border-emerald-500/30 group-hover:scale-110 transition-transform">
-                        <i class="fa-solid fa-file-invoice-dollar"></i>
+            <div class="workspace-card bg-[#12121C] border border-[#282838] hover:border-emerald-500 rounded-2xl p-5 transition-all hover:-translate-y-1 shadow-lg group flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-500/15 text-emerald-400 flex items-center justify-center text-lg border border-emerald-500/30 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-file-invoice-dollar"></i>
+                        </div>
+                        <span class="text-[11px] font-mono font-bold px-2 py-0.5 rounded bg-slate-800 text-slate-300">B2B</span>
                     </div>
-                    <span class="text-[11px] font-mono font-bold px-2 py-0.5 rounded bg-slate-800 text-slate-300">B2B</span>
+                    <h4 class="text-base font-bold text-white group-hover:text-emerald-400 transition-colors">03_commercial/</h4>
+                    <p class="text-xs text-[#94A3B8] mt-1">Angebote (ANG), ZUGFeRD 2.2 Rechnungen, Sparkassen-IBAN</p>
                 </div>
-                <h4 class="text-base font-bold text-white group-hover:text-emerald-400 transition-colors">03_commercial/</h4>
-                <p class="text-xs text-[#94A3B8] mt-1">Angebote (ANG), ZUGFeRD Rechnungen, Verträge, BGI</p>
-                <div class="mt-4 pt-3 border-t border-[#282838] flex items-center justify-between text-xs font-mono text-[#94A3B8]">
-                    <span>Kategorie: B2B</span>
-                    <span class="text-emerald-400 flex items-center gap-1">Öffnen <i class="fa-solid fa-arrow-right text-[10px]"></i></span>
+                <div class="mt-4 pt-3 border-t border-[#282838] flex items-center justify-between text-xs font-mono">
+                    <button type="button" onclick="selectCategory('commercial')" class="text-[#94A3B8] hover:text-white flex items-center gap-1 transition">
+                        <i class="fa-solid fa-folder-open text-[10px]"></i> Storage
+                    </button>
+                    <a href="?view=commercial" class="text-emerald-400 font-bold flex items-center gap-1 hover:underline">
+                        Commercial <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                    </a>
                 </div>
             </div>
         </div>

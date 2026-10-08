@@ -1,0 +1,427 @@
+﻿<!-- views/commercial.html • Commercial & Compliance Deck (03_commercial) -->
+<div class="space-y-8">
+
+    <!-- Header Section -->
+    <header class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-[#282838]">
+        <div>
+            <div class="flex items-center gap-2.5 mb-2">
+                <span class="px-2.5 py-1 rounded-md text-xs font-black uppercase tracking-wider bg-emerald-400/15 text-emerald-400 border border-emerald-400/30 font-mono">
+                    <i class="fa-solid fa-file-invoice-dollar mr-1"></i> 03_COMMERCIAL &amp; COMPLIANCE
+                </span>
+                <span class="text-xs font-mono text-[#94A3B8]">ZUGFeRD 2.2 • XRechnung • EN 16931</span>
+            </div>
+            <h2 class="text-2xl md:text-3xl font-black text-white tracking-tight flex items-center gap-3">
+                <span>💼 Commercial &amp; E-Rechnungs Deck</span>
+                <span class="text-xs px-3 py-1 rounded-full bg-[#00F0FF]/15 text-[#00F0FF] border border-[#00F0FF]/30 font-mono font-bold">
+                    GoBD Konform
+                </span>
+            </h2>
+            <p class="text-sm text-[#94A3B8] mt-1">
+                B2B-Angebotsgenerator (ANG-xxxx), E-Rechnungen und kanonische Sparkassen-Finanzstammdaten.
+            </p>
+        </div>
+
+        <!-- Financial KPI Cards -->
+        <div class="flex flex-wrap items-center gap-3">
+            <div class="bg-[#12121C] border border-[#282838] px-4 py-2.5 rounded-xl flex items-center gap-3 shadow-md">
+                <div class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></div>
+                <div>
+                    <div class="text-[10px] font-mono uppercase text-[#94A3B8]">Angebots-Volumen</div>
+                    <div class="text-xs font-bold text-emerald-400 font-mono" id="kpi-proposals-sum">0,00 €</div>
+                </div>
+            </div>
+            <button onclick="openNewProposalModal()" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-400 to-teal-500 text-slate-950 font-bold text-xs flex items-center gap-2 hover:opacity-95 shadow-lg shadow-emerald-500/20 transition-all">
+                <i class="fa-solid fa-plus"></i> Neues Angebot (ANG)
+            </button>
+        </div>
+    </header>
+
+    <!-- 2-Column Bento Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- Linke Spalte: Angebote & Rechnungen (7 Cols) -->
+        <div class="lg:col-span-7 space-y-6">
+            
+            <!-- Proposals List -->
+            <div class="bg-[#12121C] border border-[#282838] rounded-2xl p-6 space-y-4 shadow-xl">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-base font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-file-contract text-emerald-400"></i>
+                        <span>B2B Angebote (ANG-2026-xxxx)</span>
+                    </h3>
+                    <button onclick="loadProposals()" class="text-xs text-[#00F0FF] hover:underline font-mono">
+                        <i class="fa-solid fa-arrows-rotate"></i> Aktualisieren
+                    </button>
+                </div>
+
+                <div id="proposals-container" class="space-y-3">
+                    <div class="text-xs font-mono text-slate-500 py-6 text-center">Lade Angebote...</div>
+                </div>
+            </div>
+
+            <!-- Invoices List -->
+            <div class="bg-[#12121C] border border-[#282838] rounded-2xl p-6 space-y-4 shadow-xl">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-base font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-receipt text-[#00F0FF]"></i>
+                        <span>ZUGFeRD 2.2 E-Rechnungen</span>
+                    </h3>
+                    <button onclick="loadInvoices()" class="text-xs text-[#00F0FF] hover:underline font-mono">
+                        <i class="fa-solid fa-arrows-rotate"></i> Aktualisieren
+                    </button>
+                </div>
+
+                <div id="invoices-container" class="space-y-3">
+                    <div class="text-xs font-mono text-slate-500 py-6 text-center">Lade Rechnungen...</div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Rechte Spalte: Kanonische Finanzstammdaten & IBANs (5 Cols) -->
+        <div class="lg:col-span-5 space-y-6">
+            
+            <!-- Regel 14.5: Kanonische Bankverbindungen -->
+            <div class="bg-[#12121C] border border-[#282838] rounded-2xl p-6 space-y-4 shadow-xl">
+                <div class="flex items-center justify-between border-b border-[#282838] pb-3">
+                    <h3 class="text-base font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-building-columns text-emerald-400"></i>
+                        <span>Bank- &amp; Finanzdaten</span>
+                    </h3>
+                    <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800 font-bold">
+                        Regel 14.5 Verifiziert
+                    </span>
+                </div>
+
+                <div class="space-y-3 text-xs font-mono">
+                    <!-- IT-Signs B2B -->
+                    <div class="p-3.5 bg-slate-900/80 rounded-xl border border-slate-800 space-y-1.5">
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-white">IT-Signs (B2B &amp; Agentur)</span>
+                            <span class="text-[10px] text-cyan-400">Sparkasse NK</span>
+                        </div>
+                        <div class="text-slate-300 select-all font-bold text-[11px] bg-slate-950 p-2 rounded border border-slate-800/80">
+                            DE39 5925 2046 0050 0050 06
+                        </div>
+                        <div class="text-[10px] text-slate-500">BLZ: 59252046 • Kto: 0050005006</div>
+                    </div>
+
+                    <!-- Champagner Fuchs -->
+                    <div class="p-3.5 bg-slate-900/80 rounded-xl border border-slate-800 space-y-1.5">
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-white">Champagner Fuchs (Shop &amp; Sommelier)</span>
+                            <span class="text-[10px] text-amber-400">Sparkasse NK</span>
+                        </div>
+                        <div class="text-slate-300 select-all font-bold text-[11px] bg-slate-950 p-2 rounded border border-slate-800/80">
+                            DE12 5925 2046 0100 4570 35
+                        </div>
+                        <div class="text-[10px] text-slate-500">BLZ: 59252046 • Kto: 0100457035</div>
+                    </div>
+
+                    <!-- Steuerdaten -->
+                    <div class="p-3 bg-slate-950/60 rounded-xl border border-slate-800/80 space-y-1 text-[11px] text-slate-400">
+                        <div><strong>Steuernummer:</strong> 030/221/03473 (FA Neunkirchen)</div>
+                        <div><strong>USt-IdNr.:</strong> DE 137994694</div>
+                        <div><strong>Schaumweinsteuer:</strong> DE 9300026743</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ZUGFeRD 2.2 Compliance Badge -->
+            <div class="bg-gradient-to-br from-[#12121C] to-[#15232a] border border-emerald-500/30 rounded-2xl p-5 space-y-3">
+                <div class="flex items-center justify-between">
+                    <span class="text-xs font-mono font-bold text-emerald-400 uppercase tracking-wider">
+                        <i class="fa-solid fa-code mr-1"></i> E-Rechnung 2026 Ready
+                    </span>
+                    <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800 font-bold">
+                        B2B Pflicht
+                    </span>
+                </div>
+                <p class="text-xs text-slate-300 leading-relaxed">
+                    Alle erstellten Rechnungen betten automatisch das standardisierte ZUGFeRD 2.2 / XRechnung XML-Profil (Factur-X) direkt in das PDF-Dokument ein.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Modal: Neues B2B Angebot -->
+<div id="modal-new-proposal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-[#12121C] border border-[#282838] rounded-2xl max-w-lg w-full p-6 space-y-4 shadow-2xl">
+        <div class="flex items-center justify-between border-b border-[#282838] pb-3">
+            <h3 class="text-base font-bold text-white flex items-center gap-2">
+                <i class="fa-solid fa-plus-circle text-emerald-400"></i> Neues B2B Angebot erfassen
+            </h3>
+            <button onclick="closeNewProposalModal()" class="text-slate-400 hover:text-white">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+        </div>
+
+        <form id="form-new-proposal" onsubmit="createProposal(event)" class="space-y-4 text-xs font-mono">
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <label class="block text-slate-300 mb-1">Angebots-Nr.</label>
+                    <input type="text" id="prop-nr" required value="ANG-2026-" class="w-full bg-slate-900 border border-[#282838] focus:border-emerald-400 rounded-xl px-3 py-2 text-white outline-none">
+                </div>
+                <div>
+                    <label class="block text-slate-300 mb-1">Status</label>
+                    <select id="prop-status" class="w-full bg-slate-900 border border-[#282838] focus:border-emerald-400 rounded-xl px-3 py-2 text-white outline-none">
+                        <option value="sent">Versendet (Offen)</option>
+                        <option value="accepted">Angenommen</option>
+                        <option value="draft">Entwurf</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <label class="block text-slate-300 mb-1">Kundenname / Firma</label>
+                    <input type="text" id="prop-client" required placeholder="z. B. Bürgerinitiative Illingen" class="w-full bg-slate-900 border border-[#282838] focus:border-emerald-400 rounded-xl px-3 py-2 text-white outline-none">
+                </div>
+                <div>
+                    <label class="block text-slate-300 mb-1">E-Mail</label>
+                    <input type="email" id="prop-email" placeholder="kontakt@kunde.de" class="w-full bg-slate-900 border border-[#282838] focus:border-emerald-400 rounded-xl px-3 py-2 text-white outline-none">
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <label class="block text-slate-300 mb-1">Nettobetrag (€)</label>
+                    <input type="number" step="0.01" id="prop-net" required value="460.00" oninput="recalcGross()" class="w-full bg-slate-900 border border-[#282838] focus:border-emerald-400 rounded-xl px-3 py-2 text-white outline-none font-bold">
+                </div>
+                <div>
+                    <label class="block text-slate-300 mb-1">MwSt. (19%)</label>
+                    <input type="number" step="0.01" id="prop-vat" readonly value="87.40" class="w-full bg-slate-950 border border-[#282838] rounded-xl px-3 py-2 text-slate-400 outline-none">
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-slate-300 mb-1">Gesamtbetrag brutto (€)</label>
+                <input type="number" step="0.01" id="prop-gross" readonly value="547.40" class="w-full bg-slate-950 border border-emerald-500/40 rounded-xl px-3 py-2 text-emerald-400 font-bold text-sm outline-none">
+            </div>
+
+            <div class="pt-3 flex justify-end gap-2">
+                <button type="button" onclick="closeNewProposalModal()" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700">
+                    Abbrechen
+                </button>
+                <button type="submit" class="px-4 py-2 rounded-xl bg-emerald-400 text-slate-950 font-bold hover:opacity-90">
+                    Angebot speichern
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+let allProposals = [];
+let allInvoices = [];
+
+async function loadProposals() {
+    const container = document.getElementById('proposals-container');
+    const kpiEl = document.getElementById('kpi-proposals-sum');
+    try {
+        const res = await fetch('api/db_crud.php?table=proposals');
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const json = await res.json();
+        allProposals = json.data || [];
+        
+        if (allProposals.length === 0) {
+            await seedInitialCommercialData();
+            return;
+        }
+
+        renderProposals(allProposals);
+
+        const totalSum = allProposals.reduce((acc, p) => acc + (parseFloat(p.total_gross) || 0), 0);
+        kpiEl.textContent = totalSum.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+    } catch (e) {
+        console.error('Proposals fetch error:', e);
+        container.innerHTML = '<div class="text-xs text-rose-400 font-mono py-4">Fehler beim Laden der Angebote.</div>';
+    }
+}
+
+async function loadInvoices() {
+    const container = document.getElementById('invoices-container');
+    try {
+        const res = await fetch('api/db_crud.php?table=invoices');
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const json = await res.json();
+        allInvoices = json.data || [];
+        renderInvoices(allInvoices);
+    } catch (e) {
+        container.innerHTML = '<div class="text-xs text-slate-500 font-mono py-4 text-center">Keine Rechnungen vorhanden.</div>';
+    }
+}
+
+async function seedInitialCommercialData() {
+    const sampleProposal = {
+        proposal_nr: 'ANG-2026-BGI-001',
+        client_name: 'Bürgerinitiative Illingen (Herr Bick & Herr Schneider)',
+        client_email: 'kontakt@buergerinitiative-illingen.de',
+        total_net: 460.00,
+        vat: 87.40,
+        total_gross: 547.40,
+        status: 'accepted'
+    };
+
+    const sampleInvoice = {
+        invoice_nr: 'RE-2026-1001',
+        client_name: 'Bürgerinitiative Illingen',
+        client_email: 'kontakt@buergerinitiative-illingen.de',
+        total_net: 460.00,
+        vat: 87.40,
+        total_gross: 547.40,
+        status: 'paid',
+        paid_at: new Date().toISOString()
+    };
+
+    await fetch('api/db_crud.php?table=proposals', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(sampleProposal)
+    });
+
+    await fetch('api/db_crud.php?table=invoices', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(sampleInvoice)
+    });
+
+    loadProposals();
+    loadInvoices();
+}
+
+function renderProposals(proposals) {
+    const container = document.getElementById('proposals-container');
+    if (!proposals || proposals.length === 0) {
+        container.innerHTML = '<div class="text-xs text-slate-500 font-mono py-4 text-center">Keine Angebote vorhanden.</div>';
+        return;
+    }
+
+    container.innerHTML = proposals.map(p => `
+        <div class="p-4 bg-slate-900/70 border border-[#282838] hover:border-slate-700 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 transition-colors">
+            <div class="space-y-1">
+                <div class="flex items-center gap-2">
+                    <span class="font-bold text-white text-xs">${escapeHtml(p.proposal_nr)}</span>
+                    <span class="px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800 text-[10px] font-mono font-bold">${escapeHtml(p.status || 'open')}</span>
+                </div>
+                <div class="text-[11px] text-[#94A3B8] font-mono">
+                    <i class="fa-solid fa-user mr-1 text-emerald-400"></i>${escapeHtml(p.client_name)}
+                </div>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="text-right font-mono">
+                    <div class="text-xs font-bold text-white">${parseFloat(p.total_gross || 0).toFixed(2)} €</div>
+                    <div class="text-[10px] text-slate-500">netto: ${parseFloat(p.total_net || 0).toFixed(2)} €</div>
+                </div>
+                <button onclick="deleteProposal(${p.id})" class="text-slate-500 hover:text-rose-400 p-1" title="Löschen">
+                    <i class="fa-solid fa-trash-can text-xs"></i>
+                </button>
+            </div>
+        </div>
+    `).join('');
+}
+
+function renderInvoices(invoices) {
+    const container = document.getElementById('invoices-container');
+    if (!invoices || invoices.length === 0) {
+        container.innerHTML = '<div class="text-xs text-slate-500 font-mono py-4 text-center">Keine Rechnungen vorhanden.</div>';
+        return;
+    }
+
+    container.innerHTML = invoices.map(i => `
+        <div class="p-4 bg-slate-900/70 border border-[#282838] hover:border-slate-700 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 transition-colors">
+            <div class="space-y-1">
+                <div class="flex items-center gap-2">
+                    <span class="font-bold text-white text-xs">${escapeHtml(i.invoice_nr)}</span>
+                    <span class="px-2 py-0.5 rounded bg-cyan-950 text-cyan-400 border border-cyan-800 text-[10px] font-mono font-bold">${escapeHtml(i.status || 'open')}</span>
+                </div>
+                <div class="text-[11px] text-[#94A3B8] font-mono">
+                    <i class="fa-solid fa-user mr-1 text-[#00F0FF]"></i>${escapeHtml(i.client_name)}
+                </div>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="text-right font-mono">
+                    <div class="text-xs font-bold text-white">${parseFloat(i.total_gross || 0).toFixed(2)} €</div>
+                    <div class="text-[10px] text-emerald-400"><i class="fa-solid fa-check mr-1"></i>ZUGFeRD 2.2 XML</div>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function recalcGross() {
+    const net = parseFloat(document.getElementById('prop-net').value) || 0;
+    const vat = net * 0.19;
+    const gross = net + vat;
+    document.getElementById('prop-vat').value = vat.toFixed(2);
+    document.getElementById('prop-gross').value = gross.toFixed(2);
+}
+
+async function createProposal(e) {
+    e.preventDefault();
+    const net = parseFloat(document.getElementById('prop-net').value) || 0;
+    const vat = parseFloat(document.getElementById('prop-vat').value) || 0;
+    const gross = parseFloat(document.getElementById('prop-gross').value) || 0;
+
+    const payload = {
+        proposal_nr: document.getElementById('prop-nr').value.trim(),
+        client_name: document.getElementById('prop-client').value.trim(),
+        client_email: document.getElementById('prop-email').value.trim(),
+        total_net: net,
+        vat: vat,
+        total_gross: gross,
+        status: document.getElementById('prop-status').value
+    };
+
+    try {
+        const res = await fetch('api/db_crud.php?table=proposals', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(payload)
+        });
+        if (res.ok) {
+            closeNewProposalModal();
+            loadProposals();
+        }
+    } catch (e) {
+        console.error('Create proposal error:', e);
+    }
+}
+
+async function deleteProposal(id) {
+    if (!confirm('Dieses Angebot wirklich löschen?')) return;
+    try {
+        await fetch('api/db_crud.php?table=proposals&id=' + id, { method: 'DELETE' });
+        loadProposals();
+    } catch (e) {
+        console.error('Delete proposal error:', e);
+    }
+}
+
+function openNewProposalModal() {
+    const autoNr = 'ANG-2026-' + Math.floor(1000 + Math.random() * 9000);
+    document.getElementById('prop-nr').value = autoNr;
+    const m = document.getElementById('modal-new-proposal');
+    m.classList.remove('hidden');
+    m.classList.add('flex');
+}
+function closeNewProposalModal() {
+    const m = document.getElementById('modal-new-proposal');
+    m.classList.remove('flex');
+    m.classList.add('hidden');
+}
+
+function escapeHtml(str) {
+    if (!str) return '';
+    return str.toString().replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    loadProposals();
+    loadInvoices();
+});
+</script>
